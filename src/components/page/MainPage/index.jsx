@@ -5,8 +5,9 @@ import CardsBody from '../../common/CardsBody';
 import HeaderCommon from '../../common/Header';
 import SerchCommon from '../../common/Serch';
 
-const MainPage = ({ data = [] }) => {
+const MainPage = ({ data = [], search }) => {
   const [open, setOpen] = useState(false);
+  const [searchText, setSerch] = useState('');
 
   const handlerOpen = () => {
     setOpen(!open);
@@ -36,6 +37,9 @@ const MainPage = ({ data = [] }) => {
       <SerchCommon
         onClick={handlerOpen}
         state={open}
+        setSerch={setSerch}
+        search={search}
+        searchText={searchText}
       />
     </>
   );
