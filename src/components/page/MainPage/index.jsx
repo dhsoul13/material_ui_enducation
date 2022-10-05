@@ -1,19 +1,42 @@
-import { Container } from '@mui/material';
-import React from 'react';
+import { Box, Container, Drawer } from '@mui/material';
+import React, { useState } from 'react';
 import AddComponent from '../../common/AddComponent';
+import CardsBody from '../../common/CardsBody';
 import HeaderCommon from '../../common/Header';
+import SerchCommon from '../../common/Serch';
 
-const MainPage = () => {
+const MainPage = ({ data = [] }) => {
+  const [open, setOpen] = useState(false);
+
+  const handlerOpen = () => {
+    setOpen(!open);
+  };
   return (
     <>
-      <HeaderCommon />
+      <HeaderCommon onClick={handlerOpen} />
       <Container
+        maxWidth="lg"
         sx={{
-          mt: '20px',
+          padding: '50px 0px',
         }}
       >
-        <AddComponent />
+        <Box
+          sx={{
+            mb: `30px`,
+          }}
+        >
+          <AddComponent />
+        </Box>
+
+        <Box>
+          <CardsBody data={data} />
+        </Box>
       </Container>
+
+      <SerchCommon
+        onClick={handlerOpen}
+        state={open}
+      />
     </>
   );
 };

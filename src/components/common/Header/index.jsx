@@ -2,10 +2,10 @@ import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-const HeaderCommon = () => {
+const HeaderCommon = ({ onClick }) => {
   return (
     <AppBar position="static">
-      <Container fixed>
+      <Container maxWidth="xl">
         <Toolbar>
           <Typography
             variant="h4"
@@ -15,7 +15,10 @@ const HeaderCommon = () => {
           >
             Todolist
           </Typography>
-          <IconButton color="inherit">
+          <IconButton
+            color="inherit"
+            onClick={onClick}
+          >
             <SearchIcon />
           </IconButton>
         </Toolbar>

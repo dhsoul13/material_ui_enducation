@@ -12,22 +12,32 @@ const AddComponent = () => {
     alert(text);
   };
   return (
-    <Grid container>
-      <Grid xs={10}>
+    <Grid
+      container
+      spacing={2}
+    >
+      <Grid
+        xs={12}
+        md={10}
+        item
+      >
         <TextField
           label="Ввод дела"
-          fullWidth
           id="text"
+          fullWidth
           onChange={handlerChangeText}
         />
       </Grid>
-      <Grid xs={2}>
+      <Grid
+        xs={12}
+        md={2}
+        item
+      >
         <Button
           variant="contained"
           fullWidth
           sx={{
             height: `100%`,
-            ml: `10px`,
           }}
           onClick={handlerAddText}
         >
