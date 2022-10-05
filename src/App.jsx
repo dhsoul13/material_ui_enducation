@@ -1,5 +1,13 @@
+import { AppBar } from '@mui/material';
+import { Container } from '@mui/system';
+import MainContainer from './components/container/MainContainer';
+
 const App = () => {
-  return <div></div>;
+  return (
+    <>
+      <MainContainer />
+    </>
+  );
 };
 
 export default App;
