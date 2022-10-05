@@ -8,6 +8,14 @@ import {
 } from '@mui/material';
 import React from 'react';
 
+const styles = ({ theme }) => ({
+  primary: {
+    '&:hover': {
+      color: '#fff',
+    },
+  },
+});
+
 const CardElem = ({ elem }) => {
   return (
     <Grid

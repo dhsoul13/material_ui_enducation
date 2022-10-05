@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { request } from '../../../network/request';
 import MainPage from '../../page/MainPage';
 
-const MainContainer = () => {
+const MainContainer = ({ showError }) => {
   const [data, setData] = useState([]);
 
   const req = async () => {
@@ -19,7 +19,7 @@ const MainContainer = () => {
     if (result.length) {
       setData(result);
     } else {
-      alert('Ничего не найдено');
+      showError({ textAdd: 'Ничего не найдено' });
     }
   };
   return (

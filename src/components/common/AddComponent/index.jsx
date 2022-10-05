@@ -1,5 +1,6 @@
 import { Button, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const AddComponent = () => {
   const [text, setText] = useState('');
@@ -8,9 +9,8 @@ const AddComponent = () => {
     setText(e.target.value);
   };
 
-  const handlerAddText = () => {
-    alert(text);
-  };
+  const handlerAddText = () => {};
+
   return (
     <Grid
       container
