@@ -1,9 +1,10 @@
-import { Alert, AppBar, Button, IconButton } from '@mui/material';
+import { Alert, AppBar, Button, IconButton, Snackbar } from '@mui/material';
 import { Container } from '@mui/system';
 import MainContainer from './components/container/MainContainer';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
+import AlertComponent from './components/common/AlertCommon';
+import AlertSearch from './components/common/AlertSearch';
 
 const theme = createTheme({
   palette: {
@@ -29,7 +30,13 @@ const App = () => {
     text: '',
   });
 
+  const [showContent, setShowContent] = useState({
+    isOpen: false,
+    text: 'text',
+  });
+
   const setShowErrorFunc = ({ textAdd = '' }) => {
+    alert(textAdd);
     if (showError.isShow) {
       setShowError({
         isShow: false,
@@ -42,29 +49,27 @@ const App = () => {
       });
     }
   };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setShowError({
+      isShow: false,
+      text: '',
+    });
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      {showError.isShow ? (
-        <Alert
-          severity="error"
-          action={
-            <IconButton
-              aria-label="close"
-              onClick={() => {
-                setShowErrorFunc({});
-              }}
-            >
-              {' '}
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-        >
-          {showError.text}
-        </Alert>
-      ) : (
-        ''
-      )}
+      <AlertComponent
+        showError={showError}
+        handleClose={handleClose}
+        setShowErrorFunc={setShowErrorFunc}
+      />
       <MainContainer showError={setShowErrorFunc} />
+      <AlertSearch />
     </ThemeProvider>
   );
 };

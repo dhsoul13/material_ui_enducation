@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { req } from '../../../helper/function';
 import { request } from '../../../network/request';
 import MainPage from '../../page/MainPage';
 
 const MainContainer = ({ showError }) => {
   const [data, setData] = useState([]);
 
-  const req = async () => {
-    const datas = await request({ url: '?userId=1' });
-    setData(datas);
-  };
-
   useEffect(() => {
-    req();
+    req({ setData: setData });
   }, []);
 
-  const serchHandlerClick = (text) => {
+  const serchHandlerClick = async (text) => {
     const result = data.filter((el) => el.title.includes(text));
     if (result.length) {
       setData(result);
     } else {
+      await req({ setData: setData });
       showError({ textAdd: 'Ничего не найдено' });
     }
   };
