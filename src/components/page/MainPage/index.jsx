@@ -8,13 +8,22 @@ import SerchCommon from '../../common/Serch';
 import AuthComponentView from '../../component/Main/Auth';
 import AuthView from '../../component/Main/AuthView';
 import NotAuthView from '../../component/Main/NotAuthView';
+import RegComponentView from '../../component/Main/Registration';
 
 const MainPage = () => {
   const [open, setOpen] = useState(false);
 
+  const [typeAction, setTypeAction] = useState(0);
+
   const handlerOpen = () => {
     setOpen(!open);
   };
+
+  const handlerClickTypeAction = (type) => {
+    setTypeAction(type);
+  };
+
+  const { isShow } = useSelector((state) => state.auth);
 
   const { serchData } = useSelector((state) => state.data);
 
@@ -23,15 +32,30 @@ const MainPage = () => {
       <HeaderCommon onClick={handlerOpen} />
 
       {/* <AuthView serchData={serchData} /> */}
-      {/* 
-      <NotAuthView /> */}
+      {isShow ? (
+        <AuthView serchData={serchData} />
+      ) : typeAction === 0 ? (
+        <NotAuthView setTypeAction={handlerClickTypeAction} />
+      ) : typeAction === 1 ? (
+        <AuthComponentView
+          onClick={handlerClickTypeAction}
+          state={0}
+        />
+      ) : (
+        <RegComponentView
+          onClick={handlerClickTypeAction}
+          state={0}
+        />
+      )}
 
-      <AuthComponentView />
-
-      <SerchCommon
-        onClick={handlerOpen}
-        state={open}
-      />
+      {isShow ? (
+        <SerchCommon
+          onClick={handlerOpen}
+          state={open}
+        />
+      ) : (
+        ''
+      )}
     </>
   );
 };

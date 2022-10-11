@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import React from 'react';
 import ButtonCustome from '../../../common/ButttonCustom';
 
-const NotAuthView = () => {
+const NotAuthView = ({ setTypeAction }) => {
   return (
     <Container
       maxWidth="xl"
@@ -42,13 +42,21 @@ const NotAuthView = () => {
           item
           height={130}
         >
-          <ButtonCustome title={'Авторизация'} />
+          <ButtonCustome
+            title={'Авторизация'}
+            onClick={setTypeAction}
+            state={1}
+          />
         </Grid>
         <Grid
           item
           height={130}
         >
-          <ButtonCustome title={'Регистрация'} />
+          <ButtonCustome
+            title={'Регистрация'}
+            onClick={setTypeAction}
+            state={2}
+          />
         </Grid>
       </Grid>
     </Container>

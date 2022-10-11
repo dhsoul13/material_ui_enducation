@@ -9,9 +9,12 @@ import {
 import { Container } from '@mui/system';
 import MainContainer from './components/container/MainContainer';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AlertError from './components/common/AlertError';
 import AlertInfo from './components/common/AlertInfo';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { addAuth } from './store/slice/isAuthSlice';
 
 const theme = createTheme({
   palette: {
@@ -32,6 +35,23 @@ const theme = createTheme({
 });
 
 const App = () => {
+  const dispatch = useDispatch();
+  const stateChangeAuth = async () => {
+    try {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          dispatch(addAuth({ user }));
+        }
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    stateChangeAuth();
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <AlertError />

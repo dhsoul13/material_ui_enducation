@@ -1,18 +1,18 @@
 import { Container, Grid, IconButton, Typography } from '@mui/material';
 import React from 'react';
 import FormCustome from '../../../common/FormCustome';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { addAuth } from '../../../../store/slice/isAuthSlice';
 import { addError } from '../../../../store/slice/showError';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
-const AuthComponentView = ({ onClick, state }) => {
+const RegComponentView = ({ onClick, state }) => {
   const dispatch = useDispatch();
-  const authFunction = async (email, password) => {
+  const RegFunction = async (email, password) => {
     try {
       const auth = getAuth();
-      await signInWithEmailAndPassword(auth, email, password)
+      await createUserWithEmailAndPassword(auth, email, password)
         .then((user) => {
           dispatch(addAuth({ user: user.user }));
         })
@@ -56,14 +56,14 @@ const AuthComponentView = ({ onClick, state }) => {
             <ArrowBackIosIcon />
           </IconButton>
         }
-        Авторизация
+        Регистрация
       </Typography>
 
       <Grid>
-        <FormCustome onClick={authFunction} />
+        <FormCustome onClick={RegFunction} />
       </Grid>
     </Container>
   );
 };
 
-export default AuthComponentView;
+export default RegComponentView;
