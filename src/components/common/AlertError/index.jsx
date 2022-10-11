@@ -1,17 +1,36 @@
 import { Alert, Grid, IconButton, Snackbar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeError } from '../../../store/slice/showError';
 
-const AlertComponent = ({ showError, handleClose, setShowErrorFunc }) => {
+const AlertError = () => {
+  const dispatch = useDispatch();
+  const { isShow, text } = useSelector((state) => state.error);
+
+  const closeErrorAlert = () => {
+    dispatch(removeError());
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    dispatch(removeError());
+  };
   return (
     <>
       <Snackbar
-        open={showError.isShow}
-        autoHideDuration={3000}
+        open={isShow}
+        autoHideDuration={2000}
         onClose={handleClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{
-          width: `500px`,
+          width: {
+            sm: `100`,
+            xl: `500px`,
+          },
         }}
       >
         <Grid container>
@@ -30,14 +49,14 @@ const AlertComponent = ({ showError, handleClose, setShowErrorFunc }) => {
                 <IconButton
                   aria-label="close"
                   onClick={() => {
-                    setShowErrorFunc({});
+                    closeErrorAlert();
                   }}
                 >
                   <CloseIcon fontSize="inherit" />
                 </IconButton>
               }
             >
-              {showError.text}
+              {text}
             </Alert>
           </Grid>
         </Grid>
@@ -46,4 +65,4 @@ const AlertComponent = ({ showError, handleClose, setShowErrorFunc }) => {
   );
 };
 
-export default AlertComponent;
+export default AlertError;

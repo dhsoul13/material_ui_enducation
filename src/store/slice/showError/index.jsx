@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const searchSlide = createSlice({
+const errorSlide = createSlice({
   name: 'search',
   initialState: {
     isShow: false,
@@ -8,17 +8,17 @@ const searchSlide = createSlice({
   },
 
   reducers: {
-    addSearch(state, action) {
+    addError(state, action) {
       state.isShow = true;
       state.text = action.payload.text;
     },
-    removeSearch(state) {
+    removeError(state) {
       state.isShow = false;
       state.text = '';
     },
   },
 });
 
-export const { addSearch, removeSearch } = searchSlide.actions;
+export const { addError, removeError } = errorSlide.actions;
 
-export default searchSlide.reducer;
+export default errorSlide.reducer;
