@@ -5,6 +5,9 @@ import AddComponent from '../../common/AddComponent';
 import CardsBody from '../../common/CardsBody';
 import HeaderCommon from '../../common/Header';
 import SerchCommon from '../../common/Serch';
+import AuthComponentView from '../../component/Main/Auth';
+import AuthView from '../../component/Main/AuthView';
+import NotAuthView from '../../component/Main/NotAuthView';
 
 const MainPage = () => {
   const [open, setOpen] = useState(false);
@@ -18,27 +21,12 @@ const MainPage = () => {
   return (
     <>
       <HeaderCommon onClick={handlerOpen} />
-      <Container
-        maxWidth="xl"
-        sx={{
-          padding: '50px 0px',
-        }}
-      >
-        <Box>
-          <Box>
-            <Box
-              sx={{
-                mb: `30px`,
-              }}
-            >
-              <AddComponent />
-            </Box>
-            <Box>
-              <CardsBody data={serchData} />
-            </Box>
-          </Box>
-        </Box>
-      </Container>
+
+      {/* <AuthView serchData={serchData} /> */}
+      {/* 
+      <NotAuthView /> */}
+
+      <AuthComponentView />
 
       <SerchCommon
         onClick={handlerOpen}
