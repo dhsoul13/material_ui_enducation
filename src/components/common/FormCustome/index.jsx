@@ -1,4 +1,5 @@
 import {
+  Button,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -10,16 +11,20 @@ import React, { useState } from 'react';
 import ButtonCustome from '../ButttonCustom';
 import { useFormik } from 'formik';
 import { CheckBox } from '@mui/icons-material';
+import { validateSchemaAuth } from '../../../helper/validate/validateForm';
 
-const FormCustome = ({ onClick }) => {
+const FormCustome = ({ onClick, type = 'auth' }) => {
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
+
+    validationSchema: { validateSchemaAuth },
+
     onSubmit: async (values) => {
       console.log(await onClick(values.email, values.password));
-      // alert(JSON.stringify(values, null, 2));
+      alert(JSON.stringify(values, null, 2));
     },
   });
 
@@ -62,6 +67,7 @@ const FormCustome = ({ onClick }) => {
             type={showPassword ? 'text' : 'password'}
             value={formik.values.password}
             onChange={formik.handleChange}
+            // error={formik.touched.email && Boolean(formik.errors.email)}
           />
         </Grid>
         <Grid
@@ -93,10 +99,12 @@ const FormCustome = ({ onClick }) => {
           xs={10}
           height={'65px'}
         >
-          <ButtonCustome
+          {/* <ButtonCustome
             title={'Отправить'}
             type={'sumbit'}
-          />
+          /> */}
+
+          <Button type="submit">2313</Button>
         </Grid>
       </Grid>
     </form>

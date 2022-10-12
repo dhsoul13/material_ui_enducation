@@ -36,8 +36,6 @@ const ButtonCustome = ({
     },
   }));
 
-  console.log(checkStyleInObject(style, 'background'));
-
   return (
     <CustomeButtonStyle
       fullWidth
