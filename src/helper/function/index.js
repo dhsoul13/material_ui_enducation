@@ -29,3 +29,9 @@ export const deleteFun = ({ el, data, elem }) => {
     result,
   });
 };
+
+export const checkStyleInObject = (obj, key) => {
+  return Object.entries(obj).find((el) => el[0] === key)
+    ? Object.entries(obj).find((el) => el[0] === key)[1]
+    : false;
+};

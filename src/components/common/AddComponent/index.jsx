@@ -4,8 +4,9 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { addData } from '../../../store/slice/dataslice';
 
-const AddComponent = () => {
+const AddComponent = ({ addFuctionBd }) => {
   const { data } = useSelector((state) => state.data);
+  const userId = useSelector((state) => state.auth);
   const [text, setText] = useState('');
   const dispatch = useDispatch();
 
@@ -13,22 +14,30 @@ const AddComponent = () => {
     setText(e.target.value);
   };
 
-  const handlerAddText = () => {
-    if (text) {
-      const mas = [
-        ...data,
-        {
-          userID: 1,
-          id: data.length + 1,
-          title: text,
-          completed: false,
-        },
-      ];
+  const handlerAddText = async () => {
+    // if (text) {
+    //   const mas = [
+    //     ...data,
+    //     {
+    //       userID: 1,
+    //       id: data.length + 1,
+    //       title: text,
+    //       completed: false,
+    //     },
+    //   ];
+    //   dispatch(addData(mas));
+    //   setText('');
+    // }
+    await addFuctionBd({
+      userId: userId.info.uid,
+      content: {
+        text: text,
+        completed: false,
+        date: new Date().toString(),
+      },
+    });
 
-      dispatch(addData(mas));
-
-      setText('');
-    }
+    console.log(userId.info.uid);
   };
 
   return (

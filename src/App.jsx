@@ -15,6 +15,7 @@ import AlertInfo from './components/common/AlertInfo';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { addAuth } from './store/slice/isAuthSlice';
+import SpinerCustome from './components/common/SpinerCustom';
 
 const theme = createTheme({
   palette: {
@@ -35,16 +36,23 @@ const theme = createTheme({
 });
 
 const App = () => {
+  const [showContent, setShowContent] = useState(true);
   const dispatch = useDispatch();
   const stateChangeAuth = async () => {
     try {
+      setShowContent(false);
       const auth = getAuth();
       onAuthStateChanged(auth, (user) => {
         if (user) {
           dispatch(addAuth({ user }));
+
+          setShowContent(true);
+        } else {
+          setShowContent(true);
         }
       });
     } catch (e) {
+      setShowContent(true);
       console.error(e);
     }
   };
@@ -52,10 +60,12 @@ const App = () => {
   useEffect(() => {
     stateChangeAuth();
   }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <AlertError />
-      <MainContainer />
+      {showContent ? <MainContainer /> : <SpinerCustome />}
+
       <AlertInfo />
     </ThemeProvider>
   );

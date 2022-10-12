@@ -1,7 +1,15 @@
-import { Grid, TextField } from '@mui/material';
-import React from 'react';
+import {
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  TextField,
+} from '@mui/material';
+import React, { useState } from 'react';
 import ButtonCustome from '../ButttonCustom';
 import { useFormik } from 'formik';
+import { CheckBox } from '@mui/icons-material';
 
 const FormCustome = ({ onClick }) => {
   const formik = useFormik({
@@ -14,6 +22,8 @@ const FormCustome = ({ onClick }) => {
       // alert(JSON.stringify(values, null, 2));
     },
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -49,10 +59,34 @@ const FormCustome = ({ onClick }) => {
             id="password"
             name="password"
             label="Пароль"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             value={formik.values.password}
             onChange={formik.handleChange}
           />
+        </Grid>
+        <Grid
+          xs={10}
+          item
+          sx={{
+            alignItems: 'right',
+          }}
+        >
+          <FormGroup
+            sx={{
+              alignItems: 'flex-end',
+            }}
+          >
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onClick={() => {
+                    setShowPassword(!showPassword);
+                  }}
+                />
+              }
+              label="Показать пароль"
+            />
+          </FormGroup>
         </Grid>
         <Grid
           item
