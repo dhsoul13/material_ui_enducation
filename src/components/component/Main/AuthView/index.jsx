@@ -5,7 +5,6 @@ import CardsBody from '../../../common/CardsBody';
 import { getDatabase, ref, set } from 'firebase/database';
 import MenuFilter from '../../../common/MenuFilter';
 import { Grid } from '@mui/material';
-import ClearIcon from '@mui/icons-material/Clear';
 
 const AuthView = ({ serchData }) => {
   const addFuctionBd = async ({ userId, content }) => {

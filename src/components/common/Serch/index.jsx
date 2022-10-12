@@ -9,6 +9,7 @@ const SerchCommon = ({ onClick, state }) => {
   const [text, setText] = useState();
   const dispath = useDispatch();
   const { data } = useSelector((state) => state.data);
+
   return (
     <>
       <Drawer

@@ -40,7 +40,6 @@ const AuthComponentView = ({ onClick, state }) => {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        mt: 100,
       }}
     >
       <Typography

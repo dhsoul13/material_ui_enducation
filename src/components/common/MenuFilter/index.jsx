@@ -2,6 +2,7 @@ import {
   AppBar,
   Box,
   Drawer,
+  Grid,
   IconButton,
   List,
   ListItem,
@@ -15,17 +16,18 @@ import { filters } from '../../../helper/content';
 import ClearIcon from '@mui/icons-material/Clear';
 
 const MenuFilter = () => {
-  const toggleDrawer = (anchor, open) => (event) => {
-    // if (
-    //   event.type === 'keydown' &&
-    //   (event.key === 'Tab' || event.key === 'Shift')
-    // ) {
-    //   return;
-    // }
-    alert(1);
-  };
-
   const [showMenu, setShowMenu] = useState(false);
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+
+    setShowMenu(open);
+  };
   return (
     <Box>
       <Box>
@@ -39,38 +41,47 @@ const MenuFilter = () => {
       </Box>
 
       <Drawer
-        variant="persistent"
+        onClick={toggleDrawer(false)}
+        onKeyDown={toggleDrawer(false)}
         open={showMenu}
         anchor="left"
-        sx={{
-          '& .MuiDrawer-paper': {
-            top: '65px',
-            boxSizing: 'border-box',
-          },
-        }}
       >
-        <Box>
-          <IconButton
-            onClick={() => {
-              setShowMenu(!showMenu);
-            }}
-          >
-            <ClearIcon />
-          </IconButton>
-        </Box>
+        <Grid>
+          <Grid>
+            <IconButton
+              onClick={() => {
+                setShowMenu(!showMenu);
+              }}
+            >
+              <ClearIcon />
+            </IconButton>
+          </Grid>
 
-        <List>
-          {filters.map((el) => (
-            <ListItem key={el.id}>
-              <ListItemButton>
-                <ListItemText primary={el.title} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+          <Grid>
+            {filters.map((el) => (
+              <ListItem key={el.id}>
+                <ListItemButton
+                  onClick={() => {
+                    alert(1);
+                  }}
+                >
+                  <ListItemText primary={el.title} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </Grid>
+        </Grid>
       </Drawer>
     </Box>
   );
 };
 
 export default MenuFilter;
+
+// sx={{
+//     '& .MuiDrawer-paper': {
+//       top: '65px',
+
+//       boxSizing: 'border-box',
+//     },
+//   }}
