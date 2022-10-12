@@ -3,6 +3,9 @@ import React from 'react';
 import AddComponent from '../../../common/AddComponent';
 import CardsBody from '../../../common/CardsBody';
 import { getDatabase, ref, set } from 'firebase/database';
+import MenuFilter from '../../../common/MenuFilter';
+import { Grid } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const AuthView = ({ serchData }) => {
   const addFuctionBd = async ({ userId, content }) => {
@@ -19,8 +22,23 @@ const AuthView = ({ serchData }) => {
         padding: '50px 0px',
       }}
     >
-      <Box>
-        <Box>
+      <Grid
+        container
+        rowSpacing={2}
+        columnSpacing={5}
+      >
+        <Grid
+          item
+          xs={0}
+        >
+          {' '}
+          <MenuFilter />
+        </Grid>
+        <Grid
+          item
+          md={12}
+          lg={11}
+        >
           <Box
             sx={{
               mb: `30px`,
@@ -31,8 +49,8 @@ const AuthView = ({ serchData }) => {
           <Box>
             <CardsBody data={serchData} />
           </Box>
-        </Box>
-      </Box>
+        </Grid>
+      </Grid>
     </Container>
   );
 };

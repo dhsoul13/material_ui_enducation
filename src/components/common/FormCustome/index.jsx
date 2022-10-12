@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonBase,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -7,28 +8,46 @@ import {
   Grid,
   TextField,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ButtonCustome from '../ButttonCustom';
 import { useFormik } from 'formik';
 import { CheckBox } from '@mui/icons-material';
-import { validateSchemaAuth } from '../../../helper/validate/validateForm';
+import {
+  validateSchemaAuth,
+  validateSchemaReg,
+} from '../../../helper/validate/validateForm';
+import { useDispatch } from 'react-redux';
+import { addError } from '../../../store/slice/showError';
+import { concateErrorForOne, getErrorForObj } from '../../../helper/function';
 
 const FormCustome = ({ onClick, type = 'auth' }) => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
-
-    validationSchema: { validateSchemaAuth },
+    validateOnChange: false,
+    validateOnBlur: false,
+    validationSchema: type === 'auth' ? validateSchemaAuth : validateSchemaReg,
 
     onSubmit: async (values) => {
-      console.log(await onClick(values.email, values.password));
-      alert(JSON.stringify(values, null, 2));
+      await onClick(values.email, values.password);
     },
   });
 
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (Object.entries(formik.errors).length) {
+      dispatch(addError({ text: formik.errors?.password }));
+      if (Object.entries(formik.errors).length === 2) {
+        dispatch(addError({ text: concateErrorForOne(formik.errors) }));
+      } else {
+        dispatch(addError({ text: getErrorForObj(formik.errors) }));
+      }
+    }
+  }, [formik.errors]);
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -38,9 +57,6 @@ const FormCustome = ({ onClick, type = 'auth' }) => {
         justifyContent="center"
         alignItems="center"
         spacing={2}
-        sx={{
-          padding: `10px`,
-        }}
       >
         <Grid
           item
@@ -53,6 +69,7 @@ const FormCustome = ({ onClick, type = 'auth' }) => {
             label="Email"
             value={formik.values.email}
             onChange={formik.handleChange}
+            error={Boolean(formik.errors.email)}
           />
         </Grid>
         <Grid
@@ -67,7 +84,7 @@ const FormCustome = ({ onClick, type = 'auth' }) => {
             type={showPassword ? 'text' : 'password'}
             value={formik.values.password}
             onChange={formik.handleChange}
-            // error={formik.touched.email && Boolean(formik.errors.email)}
+            error={Boolean(formik.errors.password)}
           />
         </Grid>
         <Grid
@@ -100,11 +117,21 @@ const FormCustome = ({ onClick, type = 'auth' }) => {
           height={'65px'}
         >
           {/* <ButtonCustome
+            onClick={() => {}}
             title={'Отправить'}
             type={'sumbit'}
           /> */}
 
-          <Button type="submit">2313</Button>
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{
+              height: `50px`,
+            }}
+          >
+            Отправить
+          </Button>
         </Grid>
       </Grid>
     </form>

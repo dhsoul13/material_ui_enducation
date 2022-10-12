@@ -1,26 +1,32 @@
 import { Container, Grid, IconButton, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import FormCustome from '../../../common/FormCustome';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { addAuth } from '../../../../store/slice/isAuthSlice';
 import { addError } from '../../../../store/slice/showError';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import SpinerCustomeHidden from '../../../common/SpinerCustom/SpinerCustomeHidden';
 
 const AuthComponentView = ({ onClick, state }) => {
   const dispatch = useDispatch();
+  const [showSpiner, setShowSpiner] = useState(false);
   const authFunction = async (email, password) => {
     try {
+      setShowSpiner(true);
       const auth = getAuth();
       await signInWithEmailAndPassword(auth, email, password)
         .then((user) => {
           dispatch(addAuth({ user: user.user }));
+          setShowSpiner(false);
         })
         .catch((error) => {
+          setShowSpiner(false);
           dispatch(addError({ text: `${error.message}` }));
           throw error.code;
         });
     } catch (e) {
+      setShowSpiner(false);
       console.error(e);
     }
   };
@@ -34,6 +40,7 @@ const AuthComponentView = ({ onClick, state }) => {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
+        mt: 100,
       }}
     >
       <Typography
@@ -59,9 +66,16 @@ const AuthComponentView = ({ onClick, state }) => {
         Авторизация
       </Typography>
 
-      <Grid>
+      <Grid
+        sx={{
+          width: 'calc(min(700px, 90%))',
+        }}
+        container
+      >
         <FormCustome onClick={authFunction} />
       </Grid>
+
+      {showSpiner ? <SpinerCustomeHidden /> : ''}
     </Container>
   );
 };

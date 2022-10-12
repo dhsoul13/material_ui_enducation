@@ -12,3 +12,14 @@ export const option = [
     title: 'Удалить',
   },
 ];
+
+export const filters = [
+  {
+    id: 0,
+    title: 'Показать важные',
+  },
+  {
+    id: 1,
+    title: 'Показать все дела за все время',
+  },
+];

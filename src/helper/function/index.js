@@ -35,3 +35,13 @@ export const checkStyleInObject = (obj, key) => {
     ? Object.entries(obj).find((el) => el[0] === key)[1]
     : false;
 };
+
+export const concateErrorForOne = (errors) => {
+  return Object.entries(errors)
+    .map((el) => el[1])
+    .join('. ');
+};
+
+export const getErrorForObj = (error) => {
+  return Object.entries(error).map((el) => el[1])[0];
+};

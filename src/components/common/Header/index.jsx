@@ -2,9 +2,12 @@ import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
+import { useSelector } from 'react-redux';
 const HeaderCommon = ({ onClick }) => {
+  const { isShow } = useSelector((state) => state.auth);
+
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar>
           <Typography
@@ -15,12 +18,16 @@ const HeaderCommon = ({ onClick }) => {
           >
             Todolist
           </Typography>
-          <IconButton
-            color="inherit"
-            onClick={onClick}
-          >
-            <SearchIcon />
-          </IconButton>
+          {isShow ? (
+            <IconButton
+              color="inherit"
+              onClick={onClick}
+            >
+              <SearchIcon />
+            </IconButton>
+          ) : (
+            ''
+          )}
         </Toolbar>
       </Container>
     </AppBar>

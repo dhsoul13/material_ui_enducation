@@ -30,23 +30,28 @@ const MainPage = () => {
   return (
     <>
       <HeaderCommon onClick={handlerOpen} />
-
+      <Box
+        sx={{
+          mt: `80px`,
+        }}
+      >
+        {isShow ? (
+          <AuthView serchData={serchData} />
+        ) : typeAction === 0 ? (
+          <NotAuthView setTypeAction={handlerClickTypeAction} />
+        ) : typeAction === 1 ? (
+          <AuthComponentView
+            onClick={handlerClickTypeAction}
+            state={0}
+          />
+        ) : (
+          <RegComponentView
+            onClick={handlerClickTypeAction}
+            state={0}
+          />
+        )}
+      </Box>
       {/* <AuthView serchData={serchData} /> */}
-      {isShow ? (
-        <AuthView serchData={serchData} />
-      ) : typeAction === 0 ? (
-        <NotAuthView setTypeAction={handlerClickTypeAction} />
-      ) : typeAction === 1 ? (
-        <AuthComponentView
-          onClick={handlerClickTypeAction}
-          state={0}
-        />
-      ) : (
-        <RegComponentView
-          onClick={handlerClickTypeAction}
-          state={0}
-        />
-      )}
 
       {isShow ? (
         <SerchCommon
