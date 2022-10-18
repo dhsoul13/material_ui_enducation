@@ -45,3 +45,55 @@ export const concateErrorForOne = (errors) => {
 export const getErrorForObj = (error) => {
   return Object.entries(error).map((el) => el[1])[0];
 };
+
+export const concatObject = (obj) => {
+  // delete obj.id;
+  // return obj.filter((el) => el);
+  const newObj = { ...obj };
+  delete newObj.id;
+  return newObj;
+};
+
+export const changeColor = (shadow, color) => {
+  console.log({
+    shadow,
+    result: shadow
+      .split(' ')
+      .map((el) => (el.includes('rgb') ? color : el))
+      .join(' '),
+  });
+
+  return shadow
+    .split(' ')
+    .map((el) => (el.includes('rgb') ? color : el))
+    .join(' ');
+};
+
+export const sortDate = (data) => {
+  if (data && Object.entries(data).length) {
+    const mas = Object.entries(data).map((el) => {
+      return {
+        id: el[0],
+        ...el[1],
+      };
+    });
+
+    const nowDay = new Date().getDate();
+    const nowMonth = new Date().getMonth();
+    console.log({
+      nowDay,
+      nowMonth,
+    });
+    return mas
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .sort((a, b) => -Number(Boolean(a.isMain)) + Number(Boolean(b.isMain)))
+      .filter((el) => {
+        return (
+          new Date(el.date).getDate() === nowDay &&
+          new Date(el.date).getMonth() === nowMonth
+        );
+      });
+  } else {
+    return [];
+  }
+};

@@ -3,6 +3,8 @@ import dataslice from './slice/dataslice';
 import isAuthSlice from './slice/isAuthSlice';
 import searchslice from './slice/searchslice';
 import errorSlice from './slice/showError';
+import redactSlice from './slice/redactslice';
+import showAllAction from './slice/showAllAction';
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
 
 export const store = configureStore({
@@ -11,6 +13,8 @@ export const store = configureStore({
     data: dataslice,
     error: errorSlice,
     auth: isAuthSlice,
+    redact: redactSlice,
+    showAllAction: showAllAction,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

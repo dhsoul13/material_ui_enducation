@@ -14,9 +14,18 @@ import MenuIcon from '@mui/icons-material/Menu';
 import React, { useState } from 'react';
 import { filters } from '../../../helper/content';
 import ClearIcon from '@mui/icons-material/Clear';
+import { getAllAction } from '../../../helper/dbFunction/getAllAction';
+import { addData, serchData } from '../../../store/slice/dataslice';
+import { useDispatch } from 'react-redux';
+import { addAllAction } from '../../../store/slice/showAllAction';
 
 const MenuFilter = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const dispatch = useDispatch();
+
+  const showAll = (date) => {
+    dispatch(addAllAction(date));
+  };
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -62,7 +71,9 @@ const MenuFilter = () => {
               <ListItem key={el.id}>
                 <ListItemButton
                   onClick={() => {
-                    alert(1);
+                    if (el.id === 1) {
+                      getAllAction(showAll);
+                    }
                   }}
                 >
                   <ListItemText primary={el.title} />

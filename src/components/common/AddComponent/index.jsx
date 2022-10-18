@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { addData } from '../../../store/slice/dataslice';
+import { addError } from '../../../store/slice/showError';
+import { removeAllAction } from '../../../store/slice/showAllAction';
 
 const AddComponent = ({ addFuctionBd }) => {
   const { data } = useSelector((state) => state.data);
@@ -15,27 +17,19 @@ const AddComponent = ({ addFuctionBd }) => {
   };
 
   const handlerAddText = async () => {
-    // if (text) {
-    //   const mas = [
-    //     ...data,
-    //     {
-    //       userID: 1,
-    //       id: data.length + 1,
-    //       title: text,
-    //       completed: false,
-    //     },
-    //   ];
-    //   dispatch(addData(mas));
-    //   setText('');
-    // }
-    await addFuctionBd({
-      userId: userId.info.uid,
-      content: {
-        text: text,
-        completed: false,
-        date: new Date().toString(),
-      },
-    });
+    dispatch(removeAllAction());
+    if (text) {
+      await addFuctionBd({
+        userId: userId.info.uid,
+        content: {
+          text: text,
+          completed: false,
+          date: new Date().toString(),
+        },
+      });
+    } else {
+      dispatch(addError({ text: 'Введите текст' }));
+    }
 
     console.log(userId.info.uid);
   };

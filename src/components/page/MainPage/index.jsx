@@ -27,6 +27,7 @@ const MainPage = () => {
 
   const { serchData } = useSelector((state) => state.data);
 
+  console.log(serchData);
   return (
     <>
       <HeaderCommon onClick={handlerOpen} />

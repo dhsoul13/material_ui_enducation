@@ -7,12 +7,6 @@ import { addData } from '../../../store/slice/dataslice';
 import MainPage from '../../page/MainPage';
 
 const MainContainer = () => {
-  const dispath = useDispatch();
-
-  useEffect(() => {
-    req(dispath);
-  }, []);
-
   return (
     <>
       <MainPage />

@@ -16,7 +16,7 @@ export const option = [
 export const filters = [
   {
     id: 0,
-    title: 'Показать важные',
+    title: 'Показать сегоднящние дела',
   },
   {
     id: 1,

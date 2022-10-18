@@ -1,11 +1,3 @@
-import {
-  Alert,
-  AppBar,
-  Button,
-  CssBaseline,
-  IconButton,
-  Snackbar,
-} from '@mui/material';
 import { Container } from '@mui/system';
 import MainContainer from './components/container/MainContainer';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -16,6 +8,16 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { addAuth } from './store/slice/isAuthSlice';
 import SpinerCustome from './components/common/SpinerCustom';
+import {
+  getDatabase,
+  onValue,
+  ref,
+  orderByValue,
+  query,
+  orderByChild,
+} from 'firebase/database';
+import { addData } from './store/slice/dataslice';
+import { sortDate } from './helper/function';
 
 const theme = createTheme({
   palette: {
@@ -42,11 +44,17 @@ const App = () => {
     try {
       setShowContent(false);
       const auth = getAuth();
+      const db = getDatabase();
       onAuthStateChanged(auth, (user) => {
         if (user) {
           dispatch(addAuth({ user }));
-
-          setShowContent(true);
+          console.log(user.uid);
+          const starCountRef = query(ref(db, `users/${user.uid}`));
+          onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            dispatch(addData(sortDate(data)));
+            setShowContent(true);
+          });
         } else {
           setShowContent(true);
         }

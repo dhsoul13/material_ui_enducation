@@ -5,6 +5,7 @@ import CardsBody from '../../../common/CardsBody';
 import { getDatabase, ref, set } from 'firebase/database';
 import MenuFilter from '../../../common/MenuFilter';
 import { Grid } from '@mui/material';
+import PopUp from '../../../common/PopUp';
 
 const AuthView = ({ serchData }) => {
   const addFuctionBd = async ({ userId, content }) => {
@@ -50,6 +51,8 @@ const AuthView = ({ serchData }) => {
           </Box>
         </Grid>
       </Grid>
+
+      <PopUp />
     </Container>
   );
 };
