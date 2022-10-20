@@ -25,10 +25,10 @@ export const getAllAction = async (dispath) => {
                     day,
                     month,
                     year,
+                    dateFull: el.date,
                   });
                   return acc;
                 } else {
-                  console.log(el.date);
                   const day = new Date(el.date).getDate();
                   const month = new Date(el.date).getMonth();
                   const year = new Date(el.date).getFullYear();
@@ -42,6 +42,7 @@ export const getAllAction = async (dispath) => {
                       day,
                       month,
                       year,
+                      dateFull: el.date,
                     });
 
                     return acc;
@@ -88,7 +89,3 @@ export const getAllAction = async (dispath) => {
     console.log(error);
   }
 };
-
-// .map(el)=> ({
-
-// })

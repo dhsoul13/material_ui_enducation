@@ -1,13 +1,19 @@
 import { Grid } from '@mui/material';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeAllAction } from '../../../store/slice/showAllAction';
 import CardElem from '../CardElem';
 import CardElemWidthDate from '../CardElem/CardElemsWithDate';
+import ExitAndInfo from '../ElemExitAndInfo';
 
 const CardsBody = ({ data = [] }) => {
   const { isShowAllAction, date } = useSelector((state) => state.showAllAction);
 
-  console.log(isShowAllAction);
+  const dispath = useDispatch();
+
+  const exitFromAllAction = () => {
+    dispath(removeAllAction());
+  };
   return (
     <Grid
       container
@@ -28,6 +34,11 @@ const CardsBody = ({ data = [] }) => {
               <CardElemWidthDate elem={el} />
             </>
           ))}
+
+          <ExitAndInfo
+            text={'показать все дела за все время'}
+            onClick={exitFromAllAction}
+          />
         </>
       )}
     </Grid>

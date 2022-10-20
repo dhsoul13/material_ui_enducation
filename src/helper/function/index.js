@@ -1,6 +1,8 @@
+/* eslint-disable default-case */
 import { request } from '../../network/request';
 import { addData, serchData } from '../../store/slice/dataslice';
 import { addError } from '../../store/slice/showError';
+import { getAllAction } from '../dbFunction/getAllAction';
 
 export const req = async (dispath) => {
   const datas = await request({ url: '?userId=1' });
@@ -95,5 +97,20 @@ export const sortDate = (data) => {
       });
   } else {
     return [];
+  }
+};
+
+/// switch for menu
+
+export const typeFunctionForMenu = (x, data) => {
+  switch (x) {
+    case '0': {
+      getAllAction(data);
+      break;
+    }
+    case '1': {
+      getAllAction(data);
+      break;
+    }
   }
 };

@@ -18,6 +18,8 @@ import { getAllAction } from '../../../helper/dbFunction/getAllAction';
 import { addData, serchData } from '../../../store/slice/dataslice';
 import { useDispatch } from 'react-redux';
 import { addAllAction } from '../../../store/slice/showAllAction';
+import { typeFunctionForMenu } from '../../../helper/function';
+import { addShowGraph } from '../../../store/slice/graphslice';
 
 const MenuFilter = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -25,6 +27,10 @@ const MenuFilter = () => {
 
   const showAll = (date) => {
     dispatch(addAllAction(date));
+  };
+
+  const graphShow = (date) => {
+    dispatch(addShowGraph(date));
   };
 
   const toggleDrawer = (open) => (event) => {
@@ -71,8 +77,15 @@ const MenuFilter = () => {
               <ListItem key={el.id}>
                 <ListItemButton
                   onClick={() => {
+                    // if (el.id === 1) {
+                    //   getAllAction(showAll);
+                    // }
+
+                    if (el.id === 0) {
+                      typeFunctionForMenu(String(el.id), graphShow);
+                    }
                     if (el.id === 1) {
-                      getAllAction(showAll);
+                      typeFunctionForMenu(String(el.id), showAll);
                     }
                   }}
                 >

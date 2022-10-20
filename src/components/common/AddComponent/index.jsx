@@ -27,11 +27,10 @@ const AddComponent = ({ addFuctionBd }) => {
           date: new Date().toString(),
         },
       });
+      setText('');
     } else {
       dispatch(addError({ text: 'Введите текст' }));
     }
-
-    console.log(userId.info.uid);
   };
 
   return (
