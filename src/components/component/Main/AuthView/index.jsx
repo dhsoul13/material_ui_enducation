@@ -68,7 +68,7 @@ const AuthView = ({ serchData }) => {
               <AddComponent addFuctionBd={addFuctionBd} />
             </Box>
             <Box>
-              <CardsBody data={serchData} />
+              <CardsBody dates={serchData} />
             </Box>
           </Grid>
         )}

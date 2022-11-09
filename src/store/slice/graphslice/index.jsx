@@ -4,17 +4,17 @@ const showGraph = createSlice({
   name: 'graph',
   initialState: {
     isShowGraph: false,
-    date: '',
+    data: '',
   },
 
   reducers: {
     addShowGraph(state, action) {
       state.isShowGraph = true;
-      state.date = action.payload;
+      state.data = action.payload;
     },
     removeShowGraph(state) {
       state.isShowGraph = false;
-      state.date = [];
+      state.data = [];
     },
   },
 });

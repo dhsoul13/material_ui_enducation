@@ -3,6 +3,7 @@ import { request } from '../../network/request';
 import { addData, serchData } from '../../store/slice/dataslice';
 import { addError } from '../../store/slice/showError';
 import { getAllAction } from '../dbFunction/getAllAction';
+import moment from 'moment';
 
 export const req = async (dispath) => {
   const datas = await request({ url: '?userId=1' });
@@ -112,5 +113,29 @@ export const typeFunctionForMenu = (x, data) => {
       getAllAction(data);
       break;
     }
+  }
+};
+
+/// mark
+
+export const markForm = (dates) => {
+  try {
+    return dates.map((el) => moment(el).format('DD-MM-YYYY'));
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
+};
+
+/// getDataFromDate
+
+export const getDataFromDate = ({ data, date }) => {
+  try {
+    return data.filter(
+      (el) => new Date(el.date).toDateString() === new Date(date).toDateString()
+    );
+  } catch (e) {
+    console.log(e);
+    return [];
   }
 };

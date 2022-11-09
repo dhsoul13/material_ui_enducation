@@ -25,8 +25,13 @@ const MenuFilter = () => {
   const [showMenu, setShowMenu] = useState(false);
   const dispatch = useDispatch();
 
-  const showAll = (date) => {
-    dispatch(addAllAction(date));
+  const showAll = (date, value) => {
+    dispatch(
+      addAllAction({
+        date: date,
+        data: value,
+      })
+    );
   };
 
   const graphShow = (date) => {
